@@ -108,7 +108,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+#LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ar'
 
 TIME_ZONE = 'UTC'
 
@@ -134,3 +135,6 @@ LOGOUT_REDIRECT_URL = 'index'
 # Mercado Pago Config
 # settings.py
 MP_ACCESS_TOKEN = "APP_USR-4052588347040162-042120-3ebf51cbb5a7fec145e4f7dc1aeb92de-3350937239"
+
+# En tu settings.py (abajo de todo)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

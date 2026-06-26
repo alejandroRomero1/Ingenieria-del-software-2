@@ -3,6 +3,9 @@ from django.urls import path, include
 from django.conf import settings # IMPORTANTE
 from django.conf.urls.static import static # IMPORTANTE
 from django.contrib.auth import views as auth_views 
+from django.contrib.admin.forms import AdminAuthenticationForm
+
+AdminAuthenticationForm.error_messages['invalid_login'] = "Usuario y/o clave incorrecto."
 
 urlpatterns = [
     path('admin/', admin.site.urls),

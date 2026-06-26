@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Modificar Habitación</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5" style="max-width: 600px;">
+    <div class="card shadow">
+        <div class="card-header bg-warning text-dark">
+            <h3 class="card-title mb-0">Modificar Habitación #{{ habitacion.numero_hab }}</h3>
+        </div>
+        <div class="card-body">
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="{% url 'modificar_habitacion' habitacion.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Número de Habitación</label>
+                    <input type="number" name="numero_hab" class="form-control" value="{{ habitacion.numero_hab }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tipo de Habitación</label>
+                    <select name="tipo" class="form-select" required>
+                        <option value="Simple" {% if habitacion.tipo == 'Simple' %}selected{% endif %}>Simple</option>
+                        <option value="Doble" {% if habitacion.tipo == 'Doble' %}selected{% endif %}>Doble</option>
+                        <option value="Suite" {% if habitacion.tipo == 'Suite' %}selected{% endif %}>Suite</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Capacidad (Personas)</label>
+                    <input type="number" name="capacity" class="form-control" value="{{ habitacion.capacidad }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Precio por Noche ($)</label>
+                    <input type="number" step="0.01" name="precio" class="form-control" value="{{ habitacion.precio }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Estado</label>
+                    <select name="estado" class="form-select" required>
+                        <option value="Disponible" {% if habitacion.estado == 'Disponible' %}selected{% endif %}>Disponible</option>
+                        <option value="Mantenimiento" {% if habitacion.estado == 'Mantenimiento' %}selected{% endif %}>Mantenimiento</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Descripción</label>
+                    <textarea name="descripcion" class="form-control" rows="3" required>{{ habitacion.descripcion }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Imagen Actual</label>
+                    {% if habitacion.imagen %}
+                        <div class="mb-2">
+                            <img src="{{ habitacion.imagen.url }}" style="max-height: 100px;" class="img-thumbnail" alt="Imagen habitación">
+                        </div>
+                    {% endif %}
+                    <input type="file" name="imagen" class="form-control" accept="image/*">
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="{% url 'listado_habitaciones' %}" class="btn btn-secondary me-md-2">Cancelar</a>
+                    <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
